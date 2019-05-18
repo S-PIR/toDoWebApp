@@ -16,6 +16,7 @@ import by.gsu.epamlab.ifaces.ITaskDAO;
 import by.gsu.epamlab.model.beans.Task;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.managers.DbConnectionManager;
+import by.gsu.epamlab.model.managers.PoolConnectionManager;
 
 import static by.gsu.epamlab.constants.SqlQuery.*;
 
@@ -31,7 +32,8 @@ public class TaskDBImpl implements ITaskDAO {
 		try {
 			Sections section = Sections.valueOf(param.toUpperCase());;
 			String sqlQuery = section.getSqlQuery();
-			cn = DbConnectionManager.createConnection();
+			cn = PoolConnectionManager.getConnection();
+			//cn = DbConnectionManager.createConnection();
 			ps = cn.prepareStatement(sqlQuery);
 			ps.setString(LOGIN_POSITION, user.getLogin());
 			rs = ps.executeQuery();
@@ -57,7 +59,8 @@ public class TaskDBImpl implements ITaskDAO {
 		try {
 			Function function = Function.valueOf(editFunction.toUpperCase());
 			String sqlQuery = function.getSqlQuery();
-			cn = DbConnectionManager.createConnection();
+			//cn = DbConnectionManager.createConnection();
+			cn = PoolConnectionManager.getConnection();
 			cn.setAutoCommit(false);
 			ps = cn.prepareStatement(sqlQuery);
 			for (String idTask : idTasks) {
@@ -88,7 +91,8 @@ public class TaskDBImpl implements ITaskDAO {
 		try {
 			Function function = Function.valueOf(editFunction.toUpperCase());
 			String sqlQuery = function.getSqlQuery();
-			cn = DbConnectionManager.createConnection();
+//			cn = DbConnectionManager.createConnection();
+			cn = PoolConnectionManager.getConnection();
 			ps = cn.prepareStatement(sqlQuery);
 			if (function == Function.ADD) {
 				ps.setString(LOGIN_POSITION, user.getLogin());
@@ -119,7 +123,8 @@ public class TaskDBImpl implements ITaskDAO {
 		try {
 			Function function = Function.valueOf(editFunction.toUpperCase());
 			String sqlQuery = function.getSqlQuery();
-			cn = DbConnectionManager.createConnection();
+//			cn = DbConnectionManager.createConnection();
+			cn = PoolConnectionManager.getConnection();
 			ps = cn.prepareStatement(sqlQuery);
 			ps.setString(1, task.getContentTask());
 			ps.setDate(2, task.getDate());
@@ -142,7 +147,8 @@ public class TaskDBImpl implements ITaskDAO {
 		Connection cn = null;
 		PreparedStatement ps = null;
 		try {
-			cn = DbConnectionManager.createConnection();
+//			cn = DbConnectionManager.createConnection();
+			cn = PoolConnectionManager.getConnection();
 			int id = Integer.parseInt(idTask);
 			Function function = Function.FILE;
 			String sqlQuery = function.getSqlQuery();

@@ -47,7 +47,7 @@ public class Constants {
 	public static final String USER_NAME = "root";
 	public static final String PASSWORD = "";
 	
-	public static final String UNUSED_CONSTANT = "Emptyness";
+	public static final String UNUSED_CONSTANT = "zero";
 	
 	
 }
